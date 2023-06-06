@@ -17,6 +17,7 @@ public partial class MonkeysViewModel : BaseViewModel
         this.connectivity = connectivity;
         //GetMonkeysCommand = new Command(async () => await GetMonkeysAsync());
     }
+    [RelayCommand]
     async Task GetClosestMonkey()
     {
         if (IsBusy || Monkeys.Count == 0)
