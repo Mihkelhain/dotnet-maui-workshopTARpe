@@ -7,15 +7,39 @@
     <CollectionView>
         <CollectionView.ItemsSource>
             <x:Array Type="{x:Type model:Monkey}">
-                <model:Monkey Name="Baboon"></model:Monkey>
-                <model:Monkey Name="Capuchin Monkey"></model:Monkey>
-                <model:Monkey Name="Red-shanked douc"></model:Monkey>
+                <model:Monkey
+                    Name="Baboon"
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
+                    Location="Africa and Asia" />
+                <model:Monkey
+                    Name="Capuchin Monkey"
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
+                    Location="Central and South America" />
+                <model:Monkey
+                    Name="Red-shanked douc"
+                    Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/douc.jpg"
+                    Location="Vietnam" />
             </x:Array>
         </CollectionView.ItemsSource>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Monkey">
-                <HorizontalStackLayout Padding="10">
-                    <Label Text="{Binding Name}" FontSize="24" TextColor="Gray"></Label>
+                <HorizontalStackLayout Padding="10" Spacing="10">
+                    <Image Source="{Binding Image}"
+                       HeightRequest="100"
+                       WidthRequest="100"
+                       Aspect="AspectFill"></Image>
+                    <Label VerticalOptions="Center" TextColor="Gray">
+                        <Label.Text>
+                            <MultiBinding StringFormat="{}{0} | {1}">
+                                <Binding Path="Name"></Binding>
+                                <Binding Path="Location"></Binding>
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
+                    <VerticalStackLayout Padding="4" VerticalOptions="Center">
+                        <Label Text="{Binding Name}" FontSize="24" TextColor="Gray"></Label>
+                        <Label Text="{Binding Location}" FontSize="12" TextColor="Gray"></Label>
+                    </VerticalStackLayout>
                 </HorizontalStackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
