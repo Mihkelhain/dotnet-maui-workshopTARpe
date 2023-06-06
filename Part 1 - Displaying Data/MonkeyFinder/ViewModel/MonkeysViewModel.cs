@@ -8,6 +8,8 @@ public partial class MonkeysViewModel : BaseViewModel
     MonkeyService monkeyService;
     IGeolocation geolocation;
     IConnectivity connectivity;
+    [ObservableProperty]
+    bool isRefreshing;
     public MonkeysViewModel(MonkeyService monkeyService, IConnectivity connectivity, IGeolocation geolocation)
     {
         Title = "Monkey Finder";
@@ -84,6 +86,7 @@ public partial class MonkeysViewModel : BaseViewModel
         finally
         {
             IsBusy = false;
+            IsRefreshing = false;
         }
 
 
