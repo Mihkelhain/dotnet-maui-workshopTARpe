@@ -1,4 +1,5 @@
 ﻿namespace MonkeyFinder.ViewModel;
+using MonkeyFinder.Model;
 [QueryProperty("Monkey", "Monkey")]
 public partial class MonkeyDetailsViewModel : BaseViewModel
 {
@@ -16,9 +17,9 @@ public partial class MonkeyDetailsViewModel : BaseViewModel
     {
         try
         {
-            await map.OpenAsync(Monkey.Latitude, Monkey.Longitude, new MapLaunchOptions
+            await map.OpenAsync(monkey.Latitude, monkey.Longitude, new MapLaunchOptions
             {
-                Name = Monkey.Name,
+                Name = monkey.Name,
                 NavigationMode = NavigationMode.None
             });
         }
