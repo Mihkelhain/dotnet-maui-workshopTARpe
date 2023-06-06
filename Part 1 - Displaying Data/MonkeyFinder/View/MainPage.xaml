@@ -5,23 +5,29 @@
              xmlns:model="clr-namespace:MonkeyFinder.Model"
              xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
              x:DataType="viewmodel:MonkeysViewModel"
-             Title="{Binding Title}">
+             Title="{Binding Title}"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             ios:Page.UseSafeArea="True">
+    
 
     <Grid
         ColumnDefinitions="*,*"
         ColumnSpacing="5"
         RowDefinitions="*,Auto"
         RowSpacing="0">
-        <CollectionView ItemsSource="{Binding Monkeys}"
-                         SelectionMode="None"
-                         Grid.ColumnSpan="2"
-                        BackgroundColor="Transparent">
-            
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="model:Monkey">
-                    <Grid Padding="10">
-                        <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                            <Frame.GestureRecognizers>
+        <RefreshView
+            Grid.ColumnSpan="2"
+            Command="{Binding GetMonkeysCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+            <ContentView>
+                <CollectionView
+            ItemsSource="{Binding Monkeys}"
+            SelectionMode="None">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:Monkey">
+                            <Grid Padding="10">
+                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
 
                                 <TapGestureRecognizer 
                                  CommandParameter="{Binding .}" 
@@ -42,13 +48,14 @@
                                     <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
                                     <Label Style="{StaticResource MediumLabel}" Text="{Binding Location}" />
                                 </VerticalStackLayout>
-                                
+                                    </Grid>
+                                </Frame>
                             </Grid>
-                        </Frame>
-                    </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ContentView>
+        </RefreshView>
         <Button Text="Get Monkeys" 
                 Command="{Binding GetMonkeysCommand}"
                 IsEnabled="{Binding IsNotBusy}"
